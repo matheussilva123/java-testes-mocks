@@ -5,6 +5,7 @@ import br.com.alura.leilao.model.Lance;
 import br.com.alura.leilao.model.Leilao;
 import br.com.alura.leilao.model.Usuario;
 import org.junit.Assert;
+import org.junit.internal.runners.statements.Fail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,23 @@ public class FinalizarLeilaoServiceTest {
         Lance lanceVencedor = leilao.getLanceVencedor();
 
         Mockito.verify(enviadorDeEmails).enviarEmailVencedorLeilao(lanceVencedor);
+    }
+
+    @Test
+    void naoDeveriaEnviarEMailParaVencedorDoLeilaoEmCasoDeErroAoEncerrarOLeilao() {
+        List<Leilao> leiloes = leilaoList();
+        Mockito.when(leilaoDao.buscarLeiloesExpirados()).thenReturn(leiloes);
+
+        Mockito.when(leilaoDao.salvar(Mockito.any())).thenThrow(RuntimeException.class);
+
+        try {
+            service.finalizarLeiloesExpirados();
+            Mockito.verifyNoInteractions(enviadorDeEmails);
+
+        }catch (Exception e) {
+            new Fail(e);
+        }
+
     }
 
     private List<Leilao> leilaoList() {
