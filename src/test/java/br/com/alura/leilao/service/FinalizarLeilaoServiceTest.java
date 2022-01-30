@@ -3,7 +3,6 @@ package br.com.alura.leilao.service;
 import br.com.alura.leilao.dao.LeilaoDao;
 import br.com.alura.leilao.model.Lance;
 import br.com.alura.leilao.model.Leilao;
-
 import org.junit.internal.runners.statements.Fail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +16,13 @@ import java.util.List;
 
 public class FinalizarLeilaoServiceTest extends AbstractTest {
 
-    private FinalizarLeilaoService service;
+    protected FinalizarLeilaoService service;
 
     @Mock
-    private LeilaoDao leilaoDao;
+    protected LeilaoDao leilaoDao;
 
     @Mock
-    private EnviadorDeEmails enviadorDeEmails;
+    protected EnviadorDeEmails enviadorDeEmails;
 
     @BeforeEach
     public void beforeEach() {

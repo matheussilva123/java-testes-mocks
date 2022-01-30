@@ -24,4 +24,14 @@ public abstract class AbstractTest {
         return lista;
     }
 
+    protected Leilao leilao() {
+        Leilao leilao = new Leilao("Celular", new BigDecimal("500"), new Usuario("Fulano"));
+
+        Lance primeiro = new Lance(new Usuario("Beltrano"), new BigDecimal("900"));
+
+        leilao.propoe(primeiro);
+        leilao.setLanceVencedor(primeiro);
+
+        return leilao;
+    }
 }
